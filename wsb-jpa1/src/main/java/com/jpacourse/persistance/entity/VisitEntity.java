@@ -41,4 +41,39 @@ public class VisitEntity {
 		this.time = time;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "patient_id", nullable = false)
+	private PatientEntity patient;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "treatment_id", nullable = false)
+	private MedicalTreatmentEntity treatment;
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+	public MedicalTreatmentEntity getTreatment() {
+		return treatment;
+	}
+
+	public void setTreatment(MedicalTreatmentEntity treatment) {
+		this.treatment = treatment;
+	}
 }
