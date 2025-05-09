@@ -29,25 +29,28 @@ public class PatientServiceTest {
     @Test
     public void shouldDeletePatientAndVisitsButNotDoctors() {
         // Given
-        Long patientId = 1L; // Jim Halpert
-        Long doctorId = 1L;  // Michael Scott
+        Long patientId = 101L; // Jim Halpert
+        Long doctorId = 201L;  // Michael Scott
 
         // When
-        Optional<PatientEntity> patient = patientDao.findById(patientId);
-        patient.ifPresent(p -> patientDao.delete(p)); // Usuwamy pacjenta
+        PatientEntity patient = patientDao.findOne(patientId);
+        if (patient != null) {
+            patientDao.delete(patient); // Usuwamy pacjenta
+        }
 
         // Then
-        boolean patientExists = patientDao.existsById(patientId);
+        boolean patientExists = patientDao.exists(patientId);
         assertThat(patientExists).isFalse();
 
-        Optional<DoctorEntity> existingDoctor = doctorDao.findById(doctorId);
-        assertThat(existingDoctor).isPresent();
+        DoctorEntity existingDoctor = doctorDao.findOne(doctorId);
+        assertThat(existingDoctor).isNotNull();
+
     }
 
     @Test
     public void shouldGetPatientById() {
         // Given
-        Long patientId = 1L; // Jim Halpert
+        Long patientId = 101L; // Jim Halpert
 
         // When
         PatientTO patient = patientService.findById(patientId);
@@ -58,7 +61,20 @@ public class PatientServiceTest {
         assertThat(patient.getLastName()).isEqualTo("Halpert");
         assertThat(patient.getPatientNumber()).isEqualTo("PAT001");
         assertThat(patient.getDateOfBirth()).isNotNull();
-
         assertThat(patient.getVisits()).isNotEmpty();
     }
+    @Test
+    public void shouldGetVisitsByPatientId() {
+        // Given
+        Long patientId = 101L; // Jim Halpert
+
+        // When
+        var visits = patientService.getVisitsByPatientId(patientId);
+
+        // Then
+        assertThat(visits).isNotNull();
+        assertThat(visits).isNotEmpty();
+        assertThat(visits.get(0).getDescription()).isNotIn();
+    }
+
 }

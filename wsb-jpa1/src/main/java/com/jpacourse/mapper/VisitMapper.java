@@ -17,7 +17,7 @@ public class VisitMapper
         if (visitEntity.getTreatment() != null) {
             to.setTreatmentTypes(visitEntity.getTreatment().getType());
         }
-
+        to.setDescription(visitEntity.getDescription());
         return to;
     }
 }

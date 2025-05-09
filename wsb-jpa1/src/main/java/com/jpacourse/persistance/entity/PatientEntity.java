@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "PATIENT")
 public class PatientEntity {
@@ -36,7 +39,8 @@ public class PatientEntity {
 	private AddressEntity address;
 
 	// Dwustronna relacja z Visit (od strony rodzica)
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
 	private List<VisitEntity> visits;
 
 	public Long getId() {
@@ -110,4 +114,8 @@ public class PatientEntity {
 	public void setVisits(List<VisitEntity> visits) {
 		this.visits = visits;
 	}
+
+	@Version
+	private Long version;
+
 }

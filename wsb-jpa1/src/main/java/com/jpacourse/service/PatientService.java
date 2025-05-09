@@ -1,8 +1,11 @@
 package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.mapper.PatientMapper;
+import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.persistance.dao.PatientDao;
+import com.jpacourse.persistance.entity.PatientEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +29,14 @@ public class PatientService {
     }
 
     public PatientTO findById(Long id) {
-        return patientDao.findById(id)
-                .map(PatientMapper::mapToTO)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+        PatientEntity patient = patientDao.findOne(id);
+        return patient != null ? PatientMapper.mapToTO(patient) : null;
+    }
+    public List<VisitTO> getVisitsByPatientId(Long patientId) {
+        return patientDao.findVisitsByPatientId(patientId)
+                .stream()
+                .map(VisitMapper::mapVisitToTO)
+                .collect(Collectors.toList());
     }
 
 }

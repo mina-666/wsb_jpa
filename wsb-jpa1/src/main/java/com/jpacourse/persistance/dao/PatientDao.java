@@ -1,7 +1,18 @@
 package com.jpacourse.persistance.dao;
 
 import com.jpacourse.persistance.entity.PatientEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.jpacourse.persistance.entity.VisitEntity;
 
-public interface PatientDao extends JpaRepository<PatientEntity, Long> {
+import java.time.LocalDate;
+import java.util.List;
+
+
+public interface PatientDao extends Dao<PatientEntity, Long> {
+    List<PatientEntity> findByLastName(String lastName);
+    List<VisitEntity> findVisitsByPatientId(Long patientId);
+    List<PatientEntity> findPatientsWithMoreThanXVisits(int x);
+    List<PatientEntity> findByDateOfBirthAfter(LocalDate date);
+    List<PatientEntity> findAllWithVisits();
+
+
 }
