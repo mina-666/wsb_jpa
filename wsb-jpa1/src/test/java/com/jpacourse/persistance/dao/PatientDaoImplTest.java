@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
-@DataJpaTest
+@SpringBootTest
 @Transactional
 class PatientDaoImplTest {
 
@@ -28,8 +29,8 @@ class PatientDaoImplTest {
         com.jpacourse.persistance.dao.impl.PatientDaoImpl patientDao = new com.jpacourse.persistance.dao.impl.PatientDaoImpl();
         patientDao.setEntityManager(entityManager);
 
-        Long patientId = 2L; // Pam Beesly
-        Long doctorId = 1L;  // Michael Scott
+        Long patientId = 102L; // Pam Beesly
+        Long doctorId = 201L;  // Michael Scott
         LocalDateTime visitTime = LocalDateTime.now().plusDays(2);
         String description = "Druga wizyta testowa";
 

@@ -89,4 +89,10 @@ public abstract class AbstractDao<T, K extends Serializable> implements Dao<T, K
 	protected String getDomainClassName() {
 		return getDomainClass().getName();
 	}
+
+	@Override
+	public void flush() {
+		entityManager.flush();
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.jpacourse.dto;
 
-
 import com.jpacourse.persistance.enums.TreatmentType;
 
 import java.time.LocalDateTime;
@@ -10,6 +9,7 @@ public class VisitTO {
     private String doctorFirstName;
     private String doctorLastName;
     private TreatmentType treatmentTypes;
+    private String description;
 
     // Gettery i settery
     public LocalDateTime getTime() {
@@ -42,5 +42,13 @@ public class VisitTO {
 
     public void setTreatmentTypes(TreatmentType treatmentTypes) {
         this.treatmentTypes = treatmentTypes;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
